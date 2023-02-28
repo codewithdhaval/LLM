@@ -25,7 +25,7 @@ def openaiRest(prompt: str):
     url = "https://api.openai.com/v1/completions"
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer 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"
+        "Authorization": "Bearer **"
     }
     data = {
         "model": "text-davinci-003",
