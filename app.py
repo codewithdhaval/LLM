@@ -21,18 +21,29 @@ def index():
 
 
 def openaiRest(prompt: str):
-    # print(f'{prompt} from the user')
-    url = "https://api.openai.com/v1/completions"
+
+    # url = "https://api.openai.com/v1/completions" //Da-Vinci-003 endpoint
+
+    url = "https://api.openai.com/v1/chat/completions" ##chatGPT endpoint
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer **"
+        "Authorization": "Bearer "
     }
+    ## Da-vinci-003 body template
+    # data = {
+    #     "model": "gpt-3.5-turbo",
+    #     "prompt": prompt,
+    #     "temperature": 0,
+    #     "max_tokens": 50
+    # }
+
+    #chatGPT body template
     data = {
-        "model": "text-davinci-003",
-        "prompt": prompt,
-        "temperature": 0,
-        "max_tokens": 100
+        "model": "gpt-3.5-turbo",
+        "messages": [{"role": "user", "content": prompt}]
     }
+
+    
     response = requests.post(url, headers=headers, data=json.dumps(data))
-    print(response.json())
-    return response.json()["choices"][0]["text"]
+    ## return response.json()["choices"][0]["text"] ## da-vinci parse return object
+    return response.json()["choices"][0]["message"]["content"]
